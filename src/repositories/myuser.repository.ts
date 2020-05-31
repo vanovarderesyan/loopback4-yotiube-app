@@ -12,7 +12,7 @@ export class MyUserRepository extends DefaultCrudRepository<
   typeof User.prototype.id,
   UserRelations
 > {
-  constructor(@inject('datasources.pds') dataSource: juggler.DataSource) {
+  constructor(@inject('datasources.ds') dataSource: juggler.DataSource) {
     super(User, dataSource);
   }
 }

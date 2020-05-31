@@ -43,6 +43,12 @@ tslib_1.__decorate([
         type: 'string',
     }),
     tslib_1.__metadata("design:type", String)
+], Todo.prototype, "owner", void 0);
+tslib_1.__decorate([
+    repository_1.property({
+        type: 'string',
+    }),
+    tslib_1.__metadata("design:type", String)
 ], Todo.prototype, "remindAtAddress", void 0);
 tslib_1.__decorate([
     repository_1.property({

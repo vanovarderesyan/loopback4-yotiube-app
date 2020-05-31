@@ -4,6 +4,7 @@ export declare class Todo extends Entity {
     title: string;
     desc?: string;
     isComplete?: boolean;
+    owner?: string;
     remindAtAddress?: string;
     remindAtGeo?: string;
     tag?: any;

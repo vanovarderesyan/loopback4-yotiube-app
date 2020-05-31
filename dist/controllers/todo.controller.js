@@ -11,10 +11,12 @@ const rest_1 = require("@loopback/rest");
 const models_1 = require("../models");
 const repositories_1 = require("../repositories");
 const authentication_1 = require("@loopback/authentication");
+const security_1 = require("@loopback/security");
 let TodoController = class TodoController {
-    constructor(todoRepository, geoService) {
+    constructor(todoRepository, geoService, currentUserProfile) {
         this.todoRepository = todoRepository;
         this.geoService = geoService;
+        this.currentUserProfile = currentUserProfile;
     }
     async createTodo(todo) {
         if (todo.remindAtAddress) {
@@ -28,6 +30,8 @@ let TodoController = class TodoController {
             // https://gis.stackexchange.com/q/7379
             todo.remindAtGeo = `${geo[0].y},${geo[0].x}`;
         }
+        console.log('@@@@@ this.currentUserProfile.email=', this.currentUserProfile[security_1.securityId]);
+        todo.owner = this.currentUserProfile[security_1.securityId];
         return this.todoRepository.create(todo);
     }
     async findTodoById(id, items) {
@@ -150,7 +154,8 @@ TodoController = tslib_1.__decorate([
     authentication_1.authenticate('jwt'),
     tslib_1.__param(0, repository_1.repository(repositories_1.TodoRepository)),
     tslib_1.__param(1, core_1.inject('services.Geocoder')),
-    tslib_1.__metadata("design:paramtypes", [repositories_1.TodoRepository, Object])
+    tslib_1.__param(2, core_1.inject(security_1.SecurityBindings.USER)),
+    tslib_1.__metadata("design:paramtypes", [repositories_1.TodoRepository, Object, Object])
 ], TodoController);
 exports.TodoController = TodoController;
 //# sourceMappingURL=todo.controller.js.map

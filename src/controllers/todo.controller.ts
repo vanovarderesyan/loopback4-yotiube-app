@@ -20,12 +20,14 @@ import {Todo} from '../models';
 import {TodoRepository} from '../repositories';
 import {Geocoder} from '../services';
 import {authenticate} from '@loopback/authentication';
+import {SecurityBindings, UserProfile, securityId} from '@loopback/security';
 
 @authenticate('jwt')
 export class TodoController {
   constructor(
     @repository(TodoRepository) protected todoRepository: TodoRepository,
     @inject('services.Geocoder') protected geoService: Geocoder,
+    @inject(SecurityBindings.USER) public currentUserProfile: UserProfile,
   ) {}
 
   @post('/todos', {
@@ -60,6 +62,7 @@ export class TodoController {
       // https://gis.stackexchange.com/q/7379
       todo.remindAtGeo = `${geo[0].y},${geo[0].x}`;
     }
+    todo.owner = this.currentUserProfile[securityId];
     return this.todoRepository.create(todo);
   }
 

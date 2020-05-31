@@ -37,6 +37,7 @@
   "license": "MIT",
   "dependencies": {
     "@loopback/authentication": "^4.2.2",
+    "@loopback/authentication-jwt": "^0.3.0",
     "@loopback/boot": "^2.1.2",
     "@loopback/context": "^3.6.0",
     "@loopback/core": "^2.4.2",
@@ -44,12 +45,11 @@
     "@loopback/repository": "^2.3.0",
     "@loopback/rest": "^3.3.2",
     "@loopback/rest-explorer": "^2.1.2",
+    "@loopback/security": "^0.2.9",
     "@loopback/service-proxy": "^2.1.2",
     "bcryptjs": "^2.4.3",
     "loopback-connector-rest": "^3.6.0",
-    "tslib": "^1.11.1",
-    "@loopback/authentication-jwt": "^0.3.0",
-    "@loopback/security": "^0.2.9"
+    "tslib": "^1.11.1"
   },
   "devDependencies": {
     "@loopback/build": "^5.3.0",
