@@ -5,12 +5,15 @@
 // License text available at https://opensource.org/licenses/MIT
 Object.defineProperty(exports, "__esModule", { value: true });
 const application_1 = require("./application");
+const authentication_jwt_1 = require("@loopback/authentication-jwt");
 async function migrate(args) {
     const existingSchema = args.includes('--rebuild') ? 'drop' : 'alter';
     console.log('Migrating schemas (%s existing schema)', existingSchema);
     const app = new application_1.TodoListApplication();
     await app.boot();
-    await app.migrateSchema({ existingSchema });
+    console.log('@@@@');
+    console.log(`${authentication_jwt_1.UserServiceBindings.DATASOURCE_NAME}`);
+    await app.migrateSchema({ existingSchema, models: ['User'] });
     // Connectors usually keep a pool of opened connections,
     // this keeps the process running even after all work is done.
     // We need to exit explicitly.
