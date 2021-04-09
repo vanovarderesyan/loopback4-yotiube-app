@@ -3,9 +3,9 @@ import {
   TokenService,
   UserService,
 } from '@loopback/authentication';
-import {inject} from '@loopback/core';
-import {get, post, requestBody, getModelSchemaRef} from '@loopback/rest';
-import {SecurityBindings, securityId, UserProfile} from '@loopback/security';
+import { inject } from '@loopback/core';
+import { get, post, requestBody, getModelSchemaRef } from '@loopback/rest';
+import { SecurityBindings, securityId, UserProfile } from '@loopback/security';
 import {
   TokenServiceBindings,
   UserServiceBindings,
@@ -14,8 +14,8 @@ import {
   MyUserService,
   UserRepository,
 } from '@loopback/authentication-jwt';
-import {model, property, repository} from '@loopback/repository';
-import {hash, genSalt} from 'bcryptjs';
+import { model, property, repository } from '@loopback/repository';
+import { hash, genSalt } from 'bcryptjs';
 import _ from 'lodash';
 
 @model()
@@ -46,7 +46,7 @@ export const CredentialsRequestBody = {
   description: 'The input of login function',
   required: true,
   content: {
-    'application/json': {schema: CredentialsSchema},
+    'application/json': { schema: CredentialsSchema },
   },
 };
 
@@ -56,10 +56,10 @@ export class UserController {
     public jwtService: TokenService,
     @inject(UserServiceBindings.USER_SERVICE)
     public userService: MyUserService,
-    @inject(SecurityBindings.USER, {optional: true})
+    @inject(SecurityBindings.USER, { optional: true })
     public user: UserProfile,
     @repository(UserRepository) protected userRepository: UserRepository,
-  ) {}
+  ) { }
 
   @post('/users/login', {
     responses: {
@@ -82,7 +82,7 @@ export class UserController {
   })
   async login(
     @requestBody(CredentialsRequestBody) credentials: Credentials,
-  ): Promise<{token: string}> {
+  ): Promise<{ token: string }> {
     // ensure the user exists, and the password is correct
     const user = await this.userService.verifyCredentials(credentials);
     // convert a User object into a UserProfile object (reduced set of properties)
@@ -90,7 +90,7 @@ export class UserController {
 
     // create a JSON Web Token based on the user profile
     const token = await this.jwtService.generateToken(userProfile);
-    return {token};
+    return { token };
   }
 
   @authenticate('jwt')
@@ -107,8 +107,10 @@ export class UserController {
   async whoAmI(
     @inject(SecurityBindings.USER)
     currentUserProfile: UserProfile,
-  ): Promise<string> {
-    return currentUserProfile[securityId];
+  ): Promise<any> {
+    console.log();
+
+    return currentUserProfile;
   }
 
   @post('/signup', {
@@ -142,7 +144,7 @@ export class UserController {
       _.omit(newUserRequest, 'password'),
     );
 
-    await this.userRepository.userCredentials(savedUser.id).create({password});
+    await this.userRepository.userCredentials(savedUser.id).create({ password });
 
     return savedUser;
   }

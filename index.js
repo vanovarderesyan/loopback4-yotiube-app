@@ -4,7 +4,7 @@
 // License text available at https://opensource.org/licenses/MIT
 
 const application = require('./dist');
-
+require('dotenv').config()
 module.exports = application;
 
 if (require.main === module) {

@@ -3,12 +3,12 @@
 // This file is licensed under the MIT License.
 // License text available at https://opensource.org/licenses/MIT
 
-import {HttpCachingProxy} from '@loopback/http-caching-proxy';
-import {merge} from 'lodash';
+import { HttpCachingProxy } from '@loopback/http-caching-proxy';
+import { merge } from 'lodash';
 import path from 'path';
-import {GeocoderDataSource} from '../datasources/geocoder.datasource';
-import {Todo} from '../models/index';
-import {Geocoder, GeoPoint} from '../services/geocoder.service';
+import { GeocoderDataSource } from '../datasources/geocoder.datasource';
+
+import { Geocoder, GeoPoint } from '../services/geocoder.service';
 
 /*
  ==============================================================================
@@ -34,21 +34,10 @@ import {Geocoder, GeoPoint} from '../services/geocoder.service';
  * Generate a complete Todo object for use with tests.
  * @param todo - A partial (or complete) Todo object.
  */
-export function givenTodo(todo?: Partial<Todo>) {
-  const data = Object.assign(
-    {
-      title: 'do a thing',
-      desc: 'There are some things that need doing',
-      isComplete: false,
-    },
-    todo,
-  );
-  return new Todo(data);
-}
 
 export const aLocation = {
   address: '1 New Orchard Road, Armonk, 10504',
-  geopoint: <GeoPoint>{y: 41.109653, x: -73.72467},
+  geopoint: <GeoPoint>{ y: 41.109653, x: -73.72467 },
   get geostring() {
     return `${this.geopoint.y},${this.geopoint.x}`;
   },
@@ -63,7 +52,7 @@ export function getProxiedGeoCoderConfig(proxy: HttpCachingProxy) {
   });
 }
 
-export {HttpCachingProxy};
+export { HttpCachingProxy };
 export async function givenCachingProxy() {
   const proxy = new HttpCachingProxy({
     cachePath: path.resolve(__dirname, '.http-cache'),

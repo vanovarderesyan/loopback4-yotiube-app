@@ -10,7 +10,6 @@ exports.HttpCachingProxy = http_caching_proxy_1.HttpCachingProxy;
 const lodash_1 = require("lodash");
 const path_1 = tslib_1.__importDefault(require("path"));
 const geocoder_datasource_1 = require("../datasources/geocoder.datasource");
-const index_1 = require("../models/index");
 /*
  ==============================================================================
  HELPER FUNCTIONS
@@ -35,15 +34,6 @@ const index_1 = require("../models/index");
  * Generate a complete Todo object for use with tests.
  * @param todo - A partial (or complete) Todo object.
  */
-function givenTodo(todo) {
-    const data = Object.assign({
-        title: 'do a thing',
-        desc: 'There are some things that need doing',
-        isComplete: false,
-    }, todo);
-    return new index_1.Todo(data);
-}
-exports.givenTodo = givenTodo;
 exports.aLocation = {
     address: '1 New Orchard Road, Armonk, 10504',
     geopoint: { y: 41.109653, x: -73.72467 },

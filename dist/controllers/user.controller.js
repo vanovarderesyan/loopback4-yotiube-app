@@ -60,7 +60,8 @@ let UserController = class UserController {
         return { token };
     }
     async whoAmI(currentUserProfile) {
-        return currentUserProfile[security_1.securityId];
+        console.log();
+        return currentUserProfile;
     }
     async signUp(newUserRequest) {
         const password = await bcryptjs_1.hash(newUserRequest.password, await bcryptjs_1.genSalt());

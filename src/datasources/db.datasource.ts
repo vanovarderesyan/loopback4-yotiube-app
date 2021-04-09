@@ -1,19 +1,25 @@
-// Copyright IBM Corp. 2018,2020. All Rights Reserved.
-// Node module: @loopback/example-todo
-// This file is licensed under the MIT License.
-// License text available at https://opensource.org/licenses/MIT
-
-import {inject} from '@loopback/core';
+import {inject, lifeCycleObserver, LifeCycleObserver} from '@loopback/core';
 import {juggler} from '@loopback/repository';
 
 const config = {
   name: 'db',
-  connector: 'memory',
-  localStorage: '',
-  file: './data/db.json',
+  connector: 'mongodb',
+  url: '',
+  host: 'localhost',
+  port: 27017,
+  user: '',
+  password: '',
+  database: 'app',
+  useNewUrlParser: true
 };
 
-export class DbDataSource extends juggler.DataSource {
+// Observe application's life cycle to disconnect the datasource when
+// application is stopped. This allows the application to be shut down
+// gracefully. The `stop()` method is inherited from `juggler.DataSource`.
+// Learn more at https://loopback.io/doc/en/lb4/Life-cycle.html
+@lifeCycleObserver('datasource')
+export class DbDataSource extends juggler.DataSource
+  implements LifeCycleObserver {
   static dataSourceName = 'db';
   static readonly defaultConfig = config;
 
